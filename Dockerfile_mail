@@ -1,0 +1,7 @@
+# Use the official MailHog image as the base image
+FROM mailhog/mailhog
+
+# Expose the default MailHog ports
+EXPOSE ${PORT_1025} ${PORT_8025}
+# Command to start MailHog
+CMD ["MailHog"]

@@ -1,0 +1,29 @@
+# Use the official Node.js Alpine image
+FROM node:alpine
+
+# Set environment variables
+ENV APACHE_DOCUMENT_ROOT=${APACHE_DOCUMENT_ROOT} \
+    APACHE_SERVER_NAME=${APACHE_SERVER_NAME}\
+    COMPOSER_ALLOW_SUPERUSER=${COMPOSER_ALLOW_SUPERUSER} \
+    APP_URL=${APP_URL} \
+    DB_CONNECTION=${DB_CONNECTION} \
+    DB_HOST=${DB_HOST} \
+    DB_PORT=${DB_PORT} \
+    DB_DATABASE=${DB_DATABASE} \
+    DB_USERNAME=${DB_USERNAME} \
+    DB_PASSWORD=${DB_PASSWORD} \
+    TEST_DATABASE_URL=${TEST_DATABASE_URL} \
+    MAIL_DRIVER=${MAIL_DRIVER} \
+    MAIL_HOST=${MAIL_HOST} \
+    MAIL_PORT=${MAIL_PORT}
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the local code to the container at /app
+COPY . /app
+
+# Install application dependencies
+RUN npm install
+# Specify the entrypoint script
+ENTRYPOINT ["/app/dev/docker/entrypoint.node.sh"]
